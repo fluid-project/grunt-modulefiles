@@ -1,0 +1,6 @@
+{
+    "moduleB": {
+        "files": ["moduleB-file1.js", "moduleB-file2.js"],
+        "dependencies": ["moduleA"]
+    }
+}

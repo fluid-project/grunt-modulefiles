@@ -1,0 +1,43 @@
+{
+  "name": "grunt-local-module",
+  "description": "Builds local project modules. Usseful for breaking up a single project into several modular parts which can be assembled in various configurations.",
+  "version": "0.1.0",
+  "homepage": "https://github.com/jobara/grunt-local-module",
+  "author": "Fluid Project",
+  "repository": {
+    "type": "git",
+    "url": ") git://github.com/jobara/grunt-local-module.git"
+  },
+  "bugs": {
+    "url": "https://github.com/jobara/grunt-local-module/issues"
+  },
+  "license": [
+    {
+      "type": "BSD-3-Clause",
+      "url": "http://www.opensource.org/licenses/BSD-3-Clause"
+    },
+    {
+      "type": "ECL-2.0",
+      "url": "http://www.opensource.org/licenses/ECL-2.0"
+    }
+  ]
+  "main": "Gruntfile.js",
+  "engines": {
+    "node": ">= 0.8.0"
+  },
+  "scripts": {
+    "test": "grunt test"
+  },
+  "devDependencies": {
+    "grunt-contrib-jshint": "~0.6.0",
+    "grunt-contrib-clean": "~0.4.0",
+    "grunt-contrib-nodeunit": "~0.2.0",
+    "grunt": "~0.4.1"
+  },
+  "peerDependencies": {
+    "grunt": "~0.4.1"
+  },
+  "keywords": [
+    "gruntplugin"
+  ]
+}
