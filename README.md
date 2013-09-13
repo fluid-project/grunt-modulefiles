@@ -41,9 +41,9 @@ includes. The included files and dependencies should all be listed in the order 
 
 ```json
 {
-  moduleC: {
-    files: ["file1.js", "file2.js"],
-    dependencies: ["moduleA", "moduleB"]
+  "moduleC": {
+    "files": ["file1.js", "file2.js"],
+    "dependencies": ["moduleA", "moduleB"]
   }
 }
 
