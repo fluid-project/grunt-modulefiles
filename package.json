@@ -6,7 +6,7 @@
   "author": "Fluid Project",
   "repository": {
     "type": "git",
-    "url": ") git://github.com/jobara/grunt-local-module.git"
+    "url": "git://github.com/jobara/grunt-local-module.git"
   },
   "bugs": {
     "url": "https://github.com/jobara/grunt-local-module/issues"
