@@ -20,7 +20,7 @@
       "type": "ECL-2.0",
       "url": "http://www.opensource.org/licenses/ECL-2.0"
     }
-  ]
+  ],
   "main": "Gruntfile.js",
   "engines": {
     "node": ">= 0.8.0"
