@@ -30,8 +30,8 @@ grunt.initConfig({
         // Target-specific options go here.
       },
       src: []// Target-specific file lists go here.
-    },
-  },
+    }
+  }
 })
 ```
 
@@ -50,13 +50,6 @@ These json dependency files contain a name for the module, the files it contains
 
 ### Options
 
-#### options.configPath
-Type: `String`
-Default value: `pkgfiles`
-
-A string value reprsenting the path in the grunt config where the output should be stored.
-This can later be accessed either through grunt.config.get(prop) or "<%= prop %>"
-
 #### options.exclude
 Type: `String or Array`
 Default value: `[]`
@@ -70,10 +63,31 @@ Default value: `null`
 Either an array or comma separated string listing the modules to be included in the set of dependencies.
 If the value is falesy the entire set of modules, minus exclusions (see option.exclude), will be used.
 
+### Output
+
+An array of all the files returned from the task is stored at the targets output property. This can be accessed using either grunt.config.prop or "<%= modulefiles.targetName.output =>". (see: http://gruntjs.com/api/grunt.config)
+
+```js
+grunt.initConfig({
+  modulefiles: {
+    your_target: {
+      src: ["**/*Dependencies.json"]
+    }
+  },
+  // example passing in the files to the concat task
+  concat: {
+    all: {
+      src: "<%= modulefiles.your_target.output %>",
+      dest: "package.js"
+    }
+  }
+})
+```
+
 ### Usage Examples
 
 #### Default Options
-In this example the json dependency files are found by matching the src pattern. There are no include and exclude options specified, so all of the modules found will be used. An array of all the files is stored in the 'pkgfiles' config property.
+In this example the json dependency files are found by matching the src pattern. There are no include and exclude options specified, so all of the modules found will be used. An array of all the files is stored in the 'modulefiles.all.output' config property.
 
 ```js
 grunt.initConfig({
@@ -81,13 +95,13 @@ grunt.initConfig({
     all: {
       src: ["**/*Dependencies.json"]
     }
-  },
+  }
 })
 ```
 
 #### Custom Options
-In this example modules "moduleA" and "moduleB" are included but "moduleC" and
-"moduleD" are excluded. The resulting set of files is stored at "package.files" config property.
+In this example modules "moduleA" and "moduleB" are included, but "moduleC" and
+"moduleD" are excluded. The resulting set of files is stored at the "modulefiles.some.output" config property.
 
 ```js
 grunt.initConfig({
@@ -95,12 +109,11 @@ grunt.initConfig({
     some: {
       options: {
         exclude: ["moduleC", "moduleD"],
-        include: "moduleA, moduleB",
-        configPath: "package.files"
+        include: "moduleA, moduleB"
       },
       src: ["**/*Dependencies.json"]
     }
-  },
+  }
 })
 ```
 

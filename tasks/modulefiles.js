@@ -21,7 +21,7 @@ module.exports = function(grunt) {
    * Will accumulate the given module's files along with those of all of the modules it depends on,
    * minus the excluded modules.
    *
-   * @return {Array} The assembled file paths, in the order that they are depended on.
+   * @return {Array} The accumulated file paths, in the order that they are depended on.
    */
   var getFilesImp = function (moduleDependencies, module, exclusions) {
       var dependencies = grunt.util._.difference(module.dependencies, exclusions);
@@ -40,7 +40,7 @@ module.exports = function(grunt) {
    *
    * Will accumulate the files required by all included modules and their dependencies, minus any excluded modules.
    *
-   * @return {Array} The assembled file paths, in the order that they are depended on.
+   * @return {Array} The accumulated file paths, in the order that they are depended on.
    */
   var getFiles = function (moduleDependencies, inclusions, exclusions) {
       var paths = [];
@@ -56,8 +56,7 @@ module.exports = function(grunt) {
     // Merge task-specific and/or target-specific options with these defaults.
     var options = this.options({
       exclude: [],
-      include: null, // null by default as a falsey value is replaced by the set of all dependencies, calculated below.
-      configPath: "pkgfiles"
+      include: null // null by default as a falsey value is replaced by the set of all dependencies, calculated below.
     });
 
     // convert comma separated strings to arrays
@@ -78,7 +77,9 @@ module.exports = function(grunt) {
       }
     });
 
-    grunt.config.set(options.configPath, getFiles(dependencies, include || Object.keys(dependencies), exclude));
+    // stores the accumulated file paths in the target's output property.
+    var outputPath = [this.name, this.target, "output"].join(".");
+    grunt.config.set(outputPath, getFiles(dependencies, include || Object.keys(dependencies), exclude));
   });
 
 };

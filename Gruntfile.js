@@ -34,35 +34,28 @@ module.exports = function(grunt) {
     // Configuration to be run (and then tested).
     modulefiles: {
       all: {
-        options: {
-          configPath: "actual.allFiles"
-        },
         src: ["**/*Dependencies.json"]
       },
       includeNoDependencies: {
         options: {
-          configPath: "actual.includeNoDependencies",
           include: "moduleA"
         },
         src: "<%= modulefiles.all.src %>"
       },
       includeWithDependencies: {
         options: {
-          configPath: "actual.includeWithDependencies",
           include: "moduleB"
         },
         src: "<%= modulefiles.all.src %>"
       },
       exclude: {
         options: {
-          configPath: "actual.exclude",
           exclude: "moduleA"
         },
         src: "<%= modulefiles.all.src %>"
       },
       includeAndExclude: {
         options: {
-          configPath: "actual.includeAndExclude",
           include: "moduleB",
           exclude: "moduleA"
         },
@@ -70,14 +63,12 @@ module.exports = function(grunt) {
       },
       includeArray: {
         options: {
-          configPath: "actual.includeArray",
           include: ["moduleA"]
         },
         src: "<%= modulefiles.all.src %>"
       },
       excludeArray: {
         options: {
-          configPath: "actual.excludeArray",
           exclude: ["moduleA"]
         },
         src: "<%= modulefiles.all.src %>"
@@ -86,13 +77,13 @@ module.exports = function(grunt) {
 
     // write the output of the test actions to a file for testing
     write: {
-      all: "<%= actual.allFiles %>",
-      includeNoDependencies: "<%= actual.includeNoDependencies %>",
-      includeWithDependencies: "<%= actual.includeWithDependencies %>",
-      exclude: "<%= actual.exclude %>",
-      includeAndExclude: "<%= actual.includeAndExclude %>",
-      includeArray: "<%= actual.includeArray %>",
-      excludeArray: "<%= actual.excludeArray %>"
+      all: "<%= modulefiles.all.output %>",
+      includeNoDependencies: "<%= modulefiles.includeNoDependencies.output %>",
+      includeWithDependencies: "<%= modulefiles.includeWithDependencies.output %>",
+      exclude: "<%= modulefiles.exclude.output %>",
+      includeAndExclude: "<%= modulefiles.includeAndExclude.output %>",
+      includeArray: "<%= modulefiles.includeArray.output %>",
+      excludeArray: "<%= modulefiles.excludeArray.output %>"
     },
 
     // Unit tests.
