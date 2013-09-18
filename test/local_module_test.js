@@ -1,3 +1,14 @@
+/*
+Copyright 2013 OCAD University
+
+Licensed under the Educational Community License (ECL), Version 2.0 or the New
+BSD license. You may not use this file except in compliance with one these
+Licenses.
+
+You may obtain a copy of the ECL 2.0 License and BSD License at
+https://github.com/fluid-project/infusion/raw/master/Infusion-LICENSE.txt
+*/
+
 'use strict';
 
 var grunt = require('grunt');
@@ -22,9 +33,10 @@ var grunt = require('grunt');
     test.ifError(value)
 */
 
-var assertModuleAssembly = function (test, testFileName) {
+var assertPackageFiles = function (test, testFileName) {
   test.expect(1);
 
+  // 'tmp/' location is specified in write task of Gruntfile.js
   var actual = grunt.file.read('tmp/' + testFileName);
   var expected = grunt.file.read('test/expected/' + testFileName);
   test.equal(actual, expected, 'Should have accumulated the test files correctly.');
@@ -38,24 +50,24 @@ exports.local_module = {
     done();
   },
   all: function(test) {
-    assertModuleAssembly(test, "all");
+    assertPackageFiles(test, "all");
   },
   includeNoDependencies: function(test) {
-    assertModuleAssembly(test, "includeNoDependencies");
+    assertPackageFiles(test, "includeNoDependencies");
   },
   includeWithDependencies: function(test) {
-    assertModuleAssembly(test, "includeWithDependencies");
+    assertPackageFiles(test, "includeWithDependencies");
   },
   exclude: function(test) {
-    assertModuleAssembly(test, "exclude");
+    assertPackageFiles(test, "exclude");
   },
   includeAndExclude: function(test) {
-    assertModuleAssembly(test, "includeAndExclude");
+    assertPackageFiles(test, "includeAndExclude");
   },
   includeArray: function(test) {
-    assertModuleAssembly(test, "includeAndExclude");
+    assertPackageFiles(test, "includeAndExclude");
   },
   excludeArray: function(test) {
-    assertModuleAssembly(test, "excludeArray");
+    assertPackageFiles(test, "excludeArray");
   }
 };
