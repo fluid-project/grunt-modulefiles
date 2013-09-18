@@ -1,6 +1,6 @@
 # grunt-local-module
 
-> Builds local project modules. Usseful for breaking up a single project into several modular parts which can be assembled in various configurations.
+> Enables a project to split its files into a set of modules. A module's information is stored in a json file containing a name for the module, the files it contains, and other modules it depends on. The module files can then be accumulated into various configurations of included and excluded modules, which can be fed into other plugins (e.g. grunt-contrib-concat) for packaging.
 
 ## Getting Started
 This plugin requires Grunt `~0.4.1`
@@ -36,12 +36,11 @@ grunt.initConfig({
 ```
 
 The `local_module` task will look for json dependency files in your project matching the specified file pattern.
-These json dependency files hold the name of the module, which other modules it depends on and which files it
-includes. The included files and dependencies should all be listed in the order of their dependence.
+These json dependency files contain a name for the module, the files it contains, and other modules it depends on. The included files and dependencies should all be listed in the order of their dependence.
 
 ```json
 {
-  "moduleC": {
+  "moduleName": {
     "files": ["file1.js", "file2.js"],
     "dependencies": ["moduleA", "moduleB"]
   }
@@ -62,20 +61,19 @@ This can later be accessed either through grunt.config.get(prop) or "<%= prop %>
 Type: `String or Array`
 Default value: `[]`
 
-Either an array or comma separated string listing the modules to be excluded from the set of depencies.
+Either an array or comma separated string listing the modules to be excluded from the set of dependencies.
 
 #### options.include
 Type: `String or Array`
 Default value: `null`
 
 Either an array or comma separated string listing the modules to be included in the set of dependencies.
-If the value is falesy the entire set of modules, minus exclusions (see option.exlude), will be used.
+If the value is falesy the entire set of modules, minus exclusions (see option.exclude), will be used.
 
 ### Usage Examples
 
 #### Default Options
-In this example all of the modules specifed in the dependency files matching the given pattern are used to
-construct the set of dependency files. The list of files is stored in the 'pkgfiles' config property.
+In this example the json dependency files are found by matching the src pattern. There are no include and exclude options specified, so all of the modules found will be used. An array of all the files is stored in the 'pkgfiles' config property.
 
 ```js
 grunt.initConfig({
@@ -88,8 +86,8 @@ grunt.initConfig({
 ```
 
 #### Custom Options
-In this example the dependencies for "moduleA" and "moduleB" are included but those for "moduleC" and
-"moduleD" are removed. The resulting set of dependency files is stored at "package.files" config property.
+In this example modules "moduleA" and "moduleB" are included but "moduleC" and
+"moduleD" are excluded. The resulting set of files is stored at "package.files" config property.
 
 ```js
 grunt.initConfig({
