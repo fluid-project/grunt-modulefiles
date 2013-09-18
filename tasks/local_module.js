@@ -36,7 +36,7 @@ module.exports = function(grunt) {
   /*
    * @param {Object} moduleDependencies, an object containing the dependency information for all modules
    * @param {Array} inclusions, an array of the modules to be included
-   * @param {Array} exclusions, an array of the modules to be excluded
+   * @param {Array} exclusions, an array of the modules to be excluded`
    *
    * Will accumulate the files required by all included modules and their dependencies, minus any excluded modules.
    *
@@ -57,7 +57,7 @@ module.exports = function(grunt) {
     var options = this.options({
       exclude: [],
       include: null, // null by default as a falsey value is replaced by the set of all dependencies, calculated below.
-      configProp: "pkgfiles"
+      configPath: "pkgfiles"
     });
 
     // convert comma separated strings to arrays
@@ -78,7 +78,7 @@ module.exports = function(grunt) {
       }
     });
 
-    grunt.config.set(options.configProp, getFiles(dependencies, include || Object.keys(dependencies), exclude));
+    grunt.config.set(options.configPath, getFiles(dependencies, include || Object.keys(dependencies), exclude));
   });
 
 };

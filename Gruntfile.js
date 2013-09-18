@@ -35,34 +35,34 @@ module.exports = function(grunt) {
     local_module: {
       all: {
         options: {
-          configProp: "actual.allFiles"
+          configPath: "actual.allFiles"
         },
         src: ["**/*Dependencies.json"]
       },
       includeNoDependencies: {
         options: {
-          configProp: "actual.includeNoDependencies",
+          configPath: "actual.includeNoDependencies",
           include: "moduleA"
         },
         src: "<%= local_module.all.src %>"
       },
       includeWithDependencies: {
         options: {
-          configProp: "actual.includeWithDependencies",
+          configPath: "actual.includeWithDependencies",
           include: "moduleB"
         },
         src: "<%= local_module.all.src %>"
       },
       exclude: {
         options: {
-          configProp: "actual.exclude",
+          configPath: "actual.exclude",
           exclude: "moduleA"
         },
         src: "<%= local_module.all.src %>"
       },
       includeAndExclude: {
         options: {
-          configProp: "actual.includeAndExclude",
+          configPath: "actual.includeAndExclude",
           include: "moduleB",
           exclude: "moduleA"
         },
@@ -70,14 +70,14 @@ module.exports = function(grunt) {
       },
       includeArray: {
         options: {
-          configProp: "actual.includeArray",
+          configPath: "actual.includeArray",
           include: ["moduleA"]
         },
         src: "<%= local_module.all.src %>"
       },
       excludeArray: {
         options: {
-          configProp: "actual.excludeArray",
+          configPath: "actual.excludeArray",
           exclude: ["moduleA"]
         },
         src: "<%= local_module.all.src %>"

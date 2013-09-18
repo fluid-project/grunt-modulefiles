@@ -50,7 +50,7 @@ These json dependency files contain a name for the module, the files it contains
 
 ### Options
 
-#### options.configProp
+#### options.configPath
 Type: `String`
 Default value: `pkgfiles`
 
@@ -96,7 +96,7 @@ grunt.initConfig({
       options: {
         exclude: ["moduleC", "moduleD"],
         include: "moduleA, moduleB",
-        configProp: "package.files"
+        configPath: "package.files"
       },
       src: ["**/*Dependencies.json"]
     }
