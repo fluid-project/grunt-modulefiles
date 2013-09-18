@@ -32,7 +32,7 @@ module.exports = function(grunt) {
     },
 
     // Configuration to be run (and then tested).
-    local_module: {
+    modulefiles: {
       all: {
         options: {
           configPath: "actual.allFiles"
@@ -44,21 +44,21 @@ module.exports = function(grunt) {
           configPath: "actual.includeNoDependencies",
           include: "moduleA"
         },
-        src: "<%= local_module.all.src %>"
+        src: "<%= modulefiles.all.src %>"
       },
       includeWithDependencies: {
         options: {
           configPath: "actual.includeWithDependencies",
           include: "moduleB"
         },
-        src: "<%= local_module.all.src %>"
+        src: "<%= modulefiles.all.src %>"
       },
       exclude: {
         options: {
           configPath: "actual.exclude",
           exclude: "moduleA"
         },
-        src: "<%= local_module.all.src %>"
+        src: "<%= modulefiles.all.src %>"
       },
       includeAndExclude: {
         options: {
@@ -66,21 +66,21 @@ module.exports = function(grunt) {
           include: "moduleB",
           exclude: "moduleA"
         },
-        src: "<%= local_module.all.src %>"
+        src: "<%= modulefiles.all.src %>"
       },
       includeArray: {
         options: {
           configPath: "actual.includeArray",
           include: ["moduleA"]
         },
-        src: "<%= local_module.all.src %>"
+        src: "<%= modulefiles.all.src %>"
       },
       excludeArray: {
         options: {
           configPath: "actual.excludeArray",
           exclude: ["moduleA"]
         },
-        src: "<%= local_module.all.src %>"
+        src: "<%= modulefiles.all.src %>"
       }
     },
 
@@ -116,7 +116,7 @@ module.exports = function(grunt) {
 
   // Whenever the "test" task is run, first clean the "tmp" dir, then run this
   // plugin's task, then test the result.
-  grunt.registerTask('test', ['clean', 'local_module', 'write', 'nodeunit']);
+  grunt.registerTask('test', ['clean', 'modulefiles', 'write', 'nodeunit']);
 
   // By default, lint, run all tests, and clean.
   grunt.registerTask('default', ['jshint', 'test', 'clean']);

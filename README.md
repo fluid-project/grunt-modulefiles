@@ -1,4 +1,4 @@
-# grunt-local-module
+# grunt-modulefiles
 
 > Enables a project to split its files into a set of modules. A module's information is stored in a json file containing a name for the module, the files it contains, and other modules it depends on. The module files can then be accumulated into various configurations of included and excluded modules, which can be fed into other plugins (e.g. grunt-contrib-concat) for packaging.
 
@@ -8,23 +8,23 @@ This plugin requires Grunt `~0.4.1`
 If you haven't used [Grunt](http://gruntjs.com/) before, be sure to check out the [Getting Started](http://gruntjs.com/getting-started) guide, as it explains how to create a [Gruntfile](http://gruntjs.com/sample-gruntfile) as well as install and use Grunt plugins. Once you're familiar with that process, you may install this plugin with this command:
 
 ```shell
-npm install grunt-local-module --save-dev
+npm install grunt-modulefiles --save-dev
 ```
 
 Once the plugin has been installed, it may be enabled inside your Gruntfile with this line of JavaScript:
 
 ```js
-grunt.loadNpmTasks('grunt-local-module');
+grunt.loadNpmTasks('grunt-modulefiles');
 ```
 
-## The "local_module" task
+## The "modulefiles" task
 
 ### Overview
-In your project's Gruntfile, add a section named `local_module` to the data object passed into `grunt.initConfig()`.
+In your project's Gruntfile, add a section named `modulefiles` to the data object passed into `grunt.initConfig()`.
 
 ```js
 grunt.initConfig({
-  local_module: {
+  modulefiles: {
     your_target: {
       options: {
         // Target-specific options go here.
@@ -35,7 +35,7 @@ grunt.initConfig({
 })
 ```
 
-The `local_module` task will look for json dependency files in your project matching the specified file pattern.
+The `modulefiles` task will look for json dependency files in your project matching the specified file pattern.
 These json dependency files contain a name for the module, the files it contains, and other modules it depends on. The included files and dependencies should all be listed in the order of their dependence.
 
 ```json
@@ -77,7 +77,7 @@ In this example the json dependency files are found by matching the src pattern.
 
 ```js
 grunt.initConfig({
-  local_module: {
+  modulefiles: {
     all: {
       src: ["**/*Dependencies.json"]
     }
@@ -91,7 +91,7 @@ In this example modules "moduleA" and "moduleB" are included but "moduleC" and
 
 ```js
 grunt.initConfig({
-  local_module: {
+  modulefiles: {
     some: {
       options: {
         exclude: ["moduleC", "moduleD"],

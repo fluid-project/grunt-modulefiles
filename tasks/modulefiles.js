@@ -52,7 +52,7 @@ module.exports = function(grunt) {
       return paths;
   };
 
-  grunt.registerMultiTask('local_module', "Enables a project to split its files into a set of modules. A module's information is stored in a json file containing a name for the module, the files it contains, and other modules it depends on. The module files can then be accumulated into various configurations of included and excluded modules, which can be fed into other plugins (e.g. grunt-contrib-concat) for packaging.", function() {
+  grunt.registerMultiTask('modulefiles', "Enables a project to split its files into a set of modules. A module's information is stored in a json file containing a name for the module, the files it contains, and other modules it depends on. The module files can then be accumulated into various configurations of included and excluded modules, which can be fed into other plugins (e.g. grunt-contrib-concat) for packaging.", function() {
     // Merge task-specific and/or target-specific options with these defaults.
     var options = this.options({
       exclude: [],

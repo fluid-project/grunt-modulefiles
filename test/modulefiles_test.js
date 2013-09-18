@@ -44,7 +44,7 @@ var assertPackageFiles = function (test, testFileName) {
   test.done();
 };
 
-exports.local_module = {
+exports.modulefiles = {
   setUp: function(done) {
     // setup here if necessary
     done();
