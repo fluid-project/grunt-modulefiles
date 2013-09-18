@@ -13,27 +13,46 @@ https://github.com/fluid-project/infusion/raw/master/Infusion-LICENSE.txt
 
 module.exports = function(grunt) {
 
-  var getModulesImp = function (moduleDependencies, module, exclusions) {
+  /*
+   * @param {Object} moduleDependencies, an object containing the dependency information for all modules
+   * @param {Object} module, an object containing the dependency information for a single module
+   * @param {Array} exclusions, an array of the modules to be excluded
+   *
+   * Will accumulate the given module's files along with those of all of the modules it depends on,
+   * minus the excluded modules.
+   *
+   * @return {Array} The assembled file paths, in the order that they are depended on.
+   */
+  var getFilesImp = function (moduleDependencies, module, exclusions) {
       var dependencies = grunt.util._.difference(module.dependencies, exclusions);
       var paths = [];
       grunt.util._.forEach(dependencies, function (dependency) {
-          paths = grunt.util._.union(paths, getModulesImp(moduleDependencies, moduleDependencies[dependency], exclusions));
+          paths = grunt.util._.union(paths, getFilesImp(moduleDependencies, moduleDependencies[dependency], exclusions));
       });
       paths = grunt.util._.union(paths, module.files);
       return paths;
   };
 
-  var getModules = function (moduleDependencies, inclusions, exclusions) {
+  /*
+   * @param {Object} moduleDependencies, an object containing the dependency information for all modules
+   * @param {Array} inclusions, an array of the modules to be included
+   * @param {Array} exclusions, an array of the modules to be excluded
+   *
+   * Will accumulate the files required by all included modules and their dependencies, minus any excluded modules.
+   *
+   * @return {Array} The assembled file paths, in the order that they are depended on.
+   */
+  var getFiles = function (moduleDependencies, inclusions, exclusions) {
       var paths = [];
       var selectedModules = grunt.util._.difference(inclusions, exclusions);
       grunt.util._.forEach(selectedModules, function (module) {
-          var modulePaths = getModulesImp(moduleDependencies, moduleDependencies[module], exclusions);
+          var modulePaths = getFilesImp(moduleDependencies, moduleDependencies[module], exclusions);
           paths = grunt.util._.union(paths, modulePaths);
       });
       return paths;
   };
 
-  grunt.registerMultiTask('local_module', 'Builds local project modules. Usseful for breaking up a single project into several modular parts which can be assembled in various configurations.', function() {
+  grunt.registerMultiTask('local_module', "Enables a project to split its files into a set of modules. A module's information is stored in a json file containing a name for the module, the files it contains, and other modules it depends on. The module files can then be accumulated into various configurations of included and excluded modules, which can be fed into other plugins (e.g. grunt-contrib-concat) for packaging.", function() {
     // Merge task-specific and/or target-specific options with these defaults.
     var options = this.options({
       exclude: [],
@@ -59,7 +78,7 @@ module.exports = function(grunt) {
       }
     });
 
-    grunt.config.set(options.configProp, getModules(dependencies, include || Object.keys(dependencies), exclude));
+    grunt.config.set(options.configProp, getFiles(dependencies, include || Object.keys(dependencies), exclude));
   });
 
 };
