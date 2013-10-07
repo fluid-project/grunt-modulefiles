@@ -72,6 +72,18 @@ module.exports = function(grunt) {
           exclude: ["moduleA"]
         },
         src: "<%= modulefiles.all.src %>"
+      },
+      nonArrayDependencies: {
+        options: {
+          include: ["moduleC"]
+        },
+        src: "<%= modulefiles.all.src %>"
+      },
+      noDependencies: {
+        options: {
+          include: ["moduleD"]
+        },
+        src: "<%= modulefiles.all.src %>"
       }
     },
 
@@ -83,7 +95,9 @@ module.exports = function(grunt) {
       exclude: "<%= modulefiles.exclude.output %>",
       includeAndExclude: "<%= modulefiles.includeAndExclude.output %>",
       includeArray: "<%= modulefiles.includeArray.output %>",
-      excludeArray: "<%= modulefiles.excludeArray.output %>"
+      excludeArray: "<%= modulefiles.excludeArray.output %>",
+      nonArrayDependencies: "<%= modulefiles.nonArrayDependencies.output %>",
+      noDependencies: "<%= modulefiles.noDependencies.output %>"
     },
 
     // Unit tests.
