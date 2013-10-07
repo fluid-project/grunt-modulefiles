@@ -1,1 +1,1 @@
-moduleA-file1.js,moduleA-file2.js,moduleC-file1.js,moduleC-file2.js
+test/fixtures/moduleA-file1.js,test/fixtures/moduleA-file2.js,test/fixtures/moduleC-file1.js,test/fixtures/moduleC-file2.js

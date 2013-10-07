@@ -10,8 +10,17 @@ https://github.com/fluid-project/infusion/raw/master/Infusion-LICENSE.txt
 */
 
 'use strict';
+var path = require('path');
 
 module.exports = function(grunt) {
+
+  var toArray = function (value) {
+    value = value || [];
+    if (typeof value === "string") {
+      value = value.split(",");
+    }
+    return value;
+  };
 
   /*
    * @param {Object} moduleDependencies, an object containing the dependency information for all modules
@@ -24,11 +33,7 @@ module.exports = function(grunt) {
    * @return {Array} The accumulated file paths, in the order that they are depended on.
    */
   var getFilesImp = function (moduleDependencies, module, exclusions) {
-      var dependencies = module.dependencies || [];
-      if (typeof dependencies === "string") {
-        dependencies = dependencies.split(",");
-      }
-      var includedDependencies = grunt.util._.difference(dependencies, exclusions);
+      var includedDependencies = grunt.util._.difference(module.dependencies, exclusions);
       var paths = [];
       grunt.util._.forEach(includedDependencies, function (dependency) {
           paths = grunt.util._.union(paths, getFilesImp(moduleDependencies, moduleDependencies[dependency], exclusions));
@@ -71,6 +76,14 @@ module.exports = function(grunt) {
     var dependencies = {};
     this.filesSrc.forEach(function (dependencyFile) {
         var dependencyObj = grunt.file.readJSON(dependencyFile);
+        grunt.util._.forEach(dependencyObj, function (module) {
+          module.files = toArray(module.files);
+          // make file paths relative to root, instead of the depenency file.
+          module.files = grunt.util._.map(module.files, function (file) {
+            return path.join(path.dirname(dependencyFile), file);
+          });
+          module.dependencies = toArray(module.dependencies);
+        });
         grunt.util._.merge(dependencies, dependencyObj);
     });
 
