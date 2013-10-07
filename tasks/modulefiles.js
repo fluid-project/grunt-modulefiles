@@ -24,9 +24,13 @@ module.exports = function(grunt) {
    * @return {Array} The accumulated file paths, in the order that they are depended on.
    */
   var getFilesImp = function (moduleDependencies, module, exclusions) {
-      var dependencies = grunt.util._.difference(module.dependencies, exclusions);
+      var dependencies = module.dependencies || [];
+      if (typeof dependencies === "string") {
+        dependencies = dependencies.split(",");
+      }
+      var includedDependencies = grunt.util._.difference(dependencies, exclusions);
       var paths = [];
-      grunt.util._.forEach(dependencies, function (dependency) {
+      grunt.util._.forEach(includedDependencies, function (dependency) {
           paths = grunt.util._.union(paths, getFilesImp(moduleDependencies, moduleDependencies[dependency], exclusions));
       });
       paths = grunt.util._.union(paths, module.files);
