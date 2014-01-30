@@ -65,15 +65,14 @@ module.exports = function(grunt) {
     // Merge task-specific and/or target-specific options with these defaults.
     var options = this.options({
       exclude: [],
-      include: null // null by default as a falsey value is replaced by the set of all dependencies, calculated below.
+      include: []
     });
 
-    // convert comma separated strings to arrays
-    var include = typeof options.include === "string" ? options.include.split(",") : options.include;
-    var exclude = typeof options.exclude === "string" ? options.exclude.split(",") : options.exclude;
+    var exclude = toArray(options.exclude);
+    var include = toArray(options.include);
 
-    // Read in all the dependency files into the "dependencies" object
-    var dependencies = {};
+    // Read in all the dependency files into the "allModules" object
+    var allModules = {};
     this.filesSrc.forEach(function (dependencyFile) {
       var dependencyObj = grunt.file.readJSON(dependencyFile);
       grunt.util._.forEach(dependencyObj, function (module) {
@@ -84,19 +83,21 @@ module.exports = function(grunt) {
         });
         module.dependencies = toArray(module.dependencies);
       });
-      grunt.util._.merge(dependencies, dependencyObj);
+      grunt.util._.merge(allModules, dependencyObj);
     });
 
     // verify that the "include" and "exlude" modules are valid
     grunt.util._.forEach(grunt.util._.union(include || [], exclude), function (moduleName) {
-      if (!dependencies[moduleName]) {
+      if (!allModules[moduleName]) {
         grunt.fail.warn("'" + moduleName + "' is not a valid module.");
       }
     });
 
     // stores the accumulated file paths in the target's output property.
     var outputPath = [this.name, this.target, "output"].join(".");
-    grunt.config.set(outputPath, getFiles(dependencies, include || Object.keys(dependencies), exclude));
+    // if no includes werer provided, it uses all of the modules.
+    include = include.length > 0 ? include : Object.keys(allModules);
+    grunt.config.set(outputPath, getFiles(allModules, include, exclude));
   });
 
 };
