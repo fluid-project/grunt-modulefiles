@@ -87,7 +87,7 @@ module.exports = function(grunt) {
     });
 
     // verify that the "include" and "exlude" modules are valid
-    grunt.util._.forEach(grunt.util._.union(include || [], exclude), function (moduleName) {
+    grunt.util._.forEach(grunt.util._.union(include, exclude), function (moduleName) {
       if (!allModules[moduleName]) {
         grunt.fail.warn("'" + moduleName + "' is not a valid module.");
       }
