@@ -69,5 +69,11 @@ exports.modulefiles = {
   },
   excludeArray: function(test) {
     assertPackageFiles(test, "excludeArray");
+  },
+  nonArrayDependencies: function(test) {
+    assertPackageFiles(test, "nonArrayDependencies");
+  },
+  noDependencies: function(test) {
+    assertPackageFiles(test, "noDependencies");
   }
 };
