@@ -1,0 +1,5 @@
+{
+    "moduleE": {
+        "files": ["moduleE-file1.js", "moduleE-file2.js"]
+    }
+}

@@ -36,7 +36,7 @@ grunt.initConfig({
 ```
 
 The `modulefiles` task will look for json dependency files in your project matching the specified file pattern.
-These json dependency files contain a name for the module, the files it contains, and other modules it depends on. The included files and dependencies should all be listed in the order of their dependence.
+These json dependency files contain a name for the module, the files it contains, and other modules it depends on. The included files and dependencies should all be listed in the order of their dependence. The files should be paths relative to the dependency file. The dependency file itself, should be located within a directory representing the module.
 
 ```json
 {
@@ -65,7 +65,16 @@ If the value is falesy the entire set of modules, minus exclusions (see option.e
 
 ### Output
 
-An array of all the files returned from the task is stored at the targets output property. This can be accessed using either grunt.config.prop or "<%= modulefiles.targetName.output =>". (see: http://gruntjs.com/api/grunt.config)
+An object containing arrays of all the files and directories returned from the task, is stored at the targets output property. 
+
+```js
+{
+  files: [/*file paths*/],
+  dirs: [/*directory paths*/]
+}
+```
+
+This can be accessed using either grunt.config.prop or "<%= modulefiles.targetName.output =>". (see: http://gruntjs.com/api/grunt.config)
 
 ```js
 grunt.initConfig({
@@ -77,7 +86,7 @@ grunt.initConfig({
   // example passing in the files to the concat task
   concat: {
     all: {
-      src: "<%= modulefiles.your_target.output %>",
+      src: "<%= modulefiles.your_target.output.files %>",
       dest: "package.js"
     }
   }
