@@ -26,7 +26,11 @@ module.exports = function(grunt) {
     delim = delim || ",";
     value = value || [];
     if (typeof value === "string") {
-      value = value.split(",");
+      value = value.split(delim);
+      // removes whitespace around the split string segments
+      _.forEach(value, function (seg, idx) {
+        value[idx] = seg.trim();
+      });
     }
     return value;
   };

@@ -110,5 +110,11 @@ exports.modulefiles = {
   },
   noDependencies_dirs: function(test) {
     assertPackageDirs(test, "noDependencies_dirs");
+  },
+  differentName_files: function(test) {
+    assertPackageFiles(test, "differentName_files");
+  },
+  differentName_dirs: function(test) {
+    assertPackageDirs(test, "differentName_dirs");
   }
 };
