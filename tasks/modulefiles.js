@@ -11,6 +11,7 @@ https://github.com/fluid-project/infusion/raw/master/Infusion-LICENSE.txt
 
 'use strict';
 var path = require('path');
+var _ = require('lodash');
 
 module.exports = function(grunt) {
 
@@ -39,12 +40,10 @@ module.exports = function(grunt) {
    * @return {[type]}            The value found at the end of the path, or undefined if the path is invalid.
    */
   var get = function (root, path) {
-    var obj = grunt.util._.clone(root, true);
+    var val = _.clone(root, true);
     var segs = toArray(path, ".");
-    var val;
-    grunt.util._.forEach(segs, function (seg) {
-      val = seg === "" ? obj : obj[seg];
-      obj = val;
+    _.forEach(segs, function (seg) {
+      val = seg === "" ? val : val[seg];
       if (val === undefined) {
         return false;
       }
@@ -62,8 +61,8 @@ module.exports = function(grunt) {
   var getPaths = function (moduleInfo, modules, path) {
     path = toArray(path || "", ".");
     var paths = [];
-    grunt.util._.forEach(modules, function(module) {
-      paths = grunt.util._.union(paths, get(moduleInfo, [module].concat(path)));
+    _.forEach(modules, function(module) {
+      paths = _.union(paths, toArray(get(moduleInfo, [module].concat(path))));
     });
     return paths;
   };
@@ -77,10 +76,10 @@ module.exports = function(grunt) {
    */
   var sortModules = function (moduleDependencies, inclusions, exclusions) {
     var modules = [];
-    var selectedModules = grunt.util._.difference(inclusions, exclusions);
-    grunt.util._.forEach(selectedModules, function (module) {
+    var selectedModules = _.difference(inclusions, exclusions);
+    _.forEach(selectedModules, function (module) {
       var dependsOn = sortModules(moduleDependencies, moduleDependencies[module].dependencies, exclusions);
-      modules = grunt.util._.union(modules, dependsOn);
+      modules = _.union(modules, dependsOn);
       modules.push(module);
     });
     return modules;
@@ -102,23 +101,23 @@ module.exports = function(grunt) {
     var moduleDirs = {};
     this.filesSrc.forEach(function (dependencyFile) {
       var dependencyObj = grunt.file.readJSON(dependencyFile);
-      grunt.util._.forEach(dependencyObj, function (module, moduleName) {
+      _.forEach(dependencyObj, function (module, moduleName) {
         module.files = toArray(module.files);
         // Locate the directory of the dependency file
         var moduleDir = path.dirname(dependencyFile);
         // recored the module directory path
         moduleDirs[moduleName] = moduleDir;
         // make file paths relative to root, instead of the depenency file.
-        module.files = grunt.util._.map(module.files, function (file) {
+        module.files = _.map(module.files, function (file) {
           return path.join(moduleDir, file);
         });
         module.dependencies = toArray(module.dependencies);
       });
-      grunt.util._.merge(allModules, dependencyObj);
+      _.merge(allModules, dependencyObj);
     });
 
     // verify that the "include" and "exlude" modules are valid
-    grunt.util._.forEach(grunt.util._.union(include, exclude), function (moduleName) {
+    _.forEach(_.union(include, exclude), function (moduleName) {
       if (!allModules[moduleName]) {
         grunt.fail.warn("'" + moduleName + "' is not a valid module.");
       }
