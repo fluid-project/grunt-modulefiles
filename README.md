@@ -67,7 +67,7 @@ If the value is falesy the entire set of modules, minus exclusions (see option.e
 
 An object containing arrays of all the files and directories returned from the task, is stored at the targets output property. 
 
-```json
+```js
 {
   files: [/*file paths*/],
   dirs: [/*directory paths*/]
