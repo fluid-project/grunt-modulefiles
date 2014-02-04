@@ -33,15 +33,23 @@ var grunt = require('grunt');
     test.ifError(value)
 */
 
-var assertPackageFiles = function (test, testFileName) {
+var assertPackage = function (test, testFileName, message) {
   test.expect(1);
 
   // 'tmp/' location is specified in write task of Gruntfile.js
   var actual = grunt.file.read('tmp/' + testFileName);
   var expected = grunt.file.read('test/expected/' + testFileName);
-  test.equal(actual, expected, 'Should have accumulated the test files correctly.');
+  test.equal(actual, expected, message);
 
   test.done();
+};
+
+var assertPackageFiles = function (test, testFileName) {
+  assertPackage(test, testFileName, 'Should have accumulated the test files correctly.');
+};
+
+var assertPackageDirs = function (test, testFileName) {
+  assertPackage(test, testFileName, 'Should have accumulated the test directories correctly.');
 };
 
 exports.modulefiles = {
@@ -49,31 +57,58 @@ exports.modulefiles = {
     // setup here if necessary
     done();
   },
-  all: function(test) {
-    assertPackageFiles(test, "all");
+  all_files: function(test) {
+    assertPackageFiles(test, "all_files");
   },
-  includeNoDependencies: function(test) {
-    assertPackageFiles(test, "includeNoDependencies");
+  all_dirs: function(test) {
+    assertPackageDirs(test, "all_dirs");
   },
-  includeWithDependencies: function(test) {
-    assertPackageFiles(test, "includeWithDependencies");
+  includeNoDependencies_files: function(test) {
+    assertPackageFiles(test, "includeNoDependencies_files");
   },
-  exclude: function(test) {
-    assertPackageFiles(test, "exclude");
+  includeNoDependencies_dirs: function(test) {
+    assertPackageDirs(test, "includeNoDependencies_dirs");
   },
-  includeAndExclude: function(test) {
-    assertPackageFiles(test, "includeAndExclude");
+  includeWithDependencies_files: function(test) {
+    assertPackageFiles(test, "includeWithDependencies_files");
   },
-  includeArray: function(test) {
-    assertPackageFiles(test, "includeAndExclude");
+  includeWithDependencies_dirs: function(test) {
+    assertPackageDirs(test, "includeWithDependencies_dirs");
   },
-  excludeArray: function(test) {
-    assertPackageFiles(test, "excludeArray");
+  exclude_files: function(test) {
+    assertPackageFiles(test, "exclude_files");
   },
-  nonArrayDependencies: function(test) {
-    assertPackageFiles(test, "nonArrayDependencies");
+  exclude_dirs: function(test) {
+    assertPackageDirs(test, "exclude_dirs");
   },
-  noDependencies: function(test) {
-    assertPackageFiles(test, "noDependencies");
+  includeAndExclude_files: function(test) {
+    assertPackageFiles(test, "includeAndExclude_files");
+  },
+  includeAndExclude_dirs: function(test) {
+    assertPackageDirs(test, "includeAndExclude_dirs");
+  },
+  includeArray_files: function(test) {
+    assertPackageFiles(test, "includeArray_files");
+  },
+  includeArray_dirs: function(test) {
+    assertPackageDirs(test, "includeArray_dirs");
+  },
+  excludeArray_files: function(test) {
+    assertPackageFiles(test, "excludeArray_files");
+  },
+  excludeArray_dirs: function(test) {
+    assertPackageDirs(test, "excludeArray_dirs");
+  },
+  nonArrayDependencies_files: function(test) {
+    assertPackageFiles(test, "nonArrayDependencies_files");
+  },
+  nonArrayDependencies_dirs: function(test) {
+    assertPackageDirs(test, "nonArrayDependencies_dirs");
+  },
+  noDependencies_files: function(test) {
+    assertPackageFiles(test, "noDependencies_files");
+  },
+  noDependencies_dirs: function(test) {
+    assertPackageDirs(test, "noDependencies_dirs");
   }
 };

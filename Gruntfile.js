@@ -89,15 +89,24 @@ module.exports = function(grunt) {
 
     // write the output of the test actions to a file for testing
     write: {
-      all: "<%= modulefiles.all.output %>",
-      includeNoDependencies: "<%= modulefiles.includeNoDependencies.output %>",
-      includeWithDependencies: "<%= modulefiles.includeWithDependencies.output %>",
-      exclude: "<%= modulefiles.exclude.output %>",
-      includeAndExclude: "<%= modulefiles.includeAndExclude.output %>",
-      includeArray: "<%= modulefiles.includeArray.output %>",
-      excludeArray: "<%= modulefiles.excludeArray.output %>",
-      nonArrayDependencies: "<%= modulefiles.nonArrayDependencies.output %>",
-      noDependencies: "<%= modulefiles.noDependencies.output %>"
+      all_files: "<%= modulefiles.all.output.files %>",
+      all_dirs: "<%= modulefiles.all.output.dirs %>",
+      includeNoDependencies_files: "<%= modulefiles.includeNoDependencies.output.files %>",
+      includeNoDependencies_dirs: "<%= modulefiles.includeNoDependencies.output.dirs %>",
+      includeWithDependencies_files: "<%= modulefiles.includeWithDependencies.output.files %>",
+      includeWithDependencies_dirs: "<%= modulefiles.includeWithDependencies.output.dirs %>",
+      exclude_files: "<%= modulefiles.exclude.output.files %>",
+      exclude_dirs: "<%= modulefiles.exclude.output.dirs %>",
+      includeAndExclude_files: "<%= modulefiles.includeAndExclude.output.files %>",
+      includeAndExclude_dirs: "<%= modulefiles.includeAndExclude.output.dirs %>",
+      includeArray_files: "<%= modulefiles.includeArray.output.files %>",
+      includeArray_dirs: "<%= modulefiles.includeArray.output.dirs %>",
+      excludeArray_files: "<%= modulefiles.excludeArray.output.files %>",
+      excludeArray_dirs: "<%= modulefiles.excludeArray.output.dirs %>",
+      nonArrayDependencies_files: "<%= modulefiles.nonArrayDependencies.output.files %>",
+      nonArrayDependencies_dirs: "<%= modulefiles.nonArrayDependencies.output.dirs %>",
+      noDependencies_files: "<%= modulefiles.noDependencies.output.files %>",
+      noDependencies_dirs: "<%= modulefiles.noDependencies.output.dirs %>"
     },
 
     // Unit tests.
