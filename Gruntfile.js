@@ -90,6 +90,18 @@ module.exports = function(grunt) {
           include: ["moduleE"]
         },
         src: "<%= modulefiles.all.src %>"
+      },
+      allWithCwd: {
+        cwd: "test/",
+        src: ["**/*Dependencies.json"]
+      },
+      includeAndExcludeWithCwd: {
+        options: {
+          include: "moduleB",
+          exclude: "moduleA"
+        },
+        cwd: "test/",
+        src: "<%= modulefiles.all.src %>"
       }
     },
 
@@ -114,7 +126,11 @@ module.exports = function(grunt) {
       noDependencies_files: "<%= modulefiles.noDependencies.output.files %>",
       noDependencies_dirs: "<%= modulefiles.noDependencies.output.dirs %>",
       differentName_files: "<%= modulefiles.differentName.output.files %>",
-      differentName_dirs: "<%= modulefiles.differentName.output.dirs %>"
+      differentName_dirs: "<%= modulefiles.differentName.output.dirs %>",
+      allWithCwd_files: "<%= modulefiles.allWithCwd.output.files %>",
+      allWithCwd_dirs: "<%= modulefiles.allWithCwd.output.dirs %>",
+      includeAndExcludeWithCwd_files: "<%= modulefiles.includeAndExcludeWithCwd.output.files %>",
+      includeAndExcludeWithCwd_dirs: "<%= modulefiles.includeAndExcludeWithCwd.output.dirs %>"
     },
 
     // Unit tests.

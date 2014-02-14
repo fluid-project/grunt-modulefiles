@@ -65,7 +65,7 @@ If the value is falesy the entire set of modules, minus exclusions (see option.e
 
 ### Output
 
-An object containing arrays of all the files and directories returned from the task, is stored at the targets output property. 
+An object containing arrays of all the files and directories returned from the task, is stored at the targets output property.
 
 ```js
 {
@@ -120,6 +120,20 @@ grunt.initConfig({
         exclude: ["moduleC", "moduleD"],
         include: "moduleA, moduleB"
       },
+      src: ["**/*Dependencies.json"]
+    }
+  }
+})
+```
+
+#### Set a relative path
+In this example, "cwd" sets the root directory for locating the dependency files from. The returned paths for the source files and directories will be relative to the new root directory.
+
+```js
+grunt.initConfig({
+  modulefiles: {
+    all: {
+      cwd: "path/",
       src: ["**/*Dependencies.json"]
     }
   }

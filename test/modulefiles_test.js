@@ -116,5 +116,17 @@ exports.modulefiles = {
   },
   differentName_dirs: function(test) {
     assertPackageDirs(test, "differentName_dirs");
+  },
+  allWithCwd_files: function(test) {
+    assertPackageDirs(test, "allWithCwd_files");
+  },
+  allWithCwd_dirs: function(test) {
+    assertPackageDirs(test, "allWithCwd_dirs");
+  },
+  includeAndExcludeWithCwd_files: function(test) {
+    assertPackageFiles(test, "includeAndExcludeWithCwd_files");
+  },
+  includeAndExcludeWithCwd_dirs: function(test) {
+    assertPackageDirs(test, "includeAndExcludeWithCwd_dirs");
   }
 };
