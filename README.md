@@ -67,7 +67,7 @@ If the value is falesy the entire set of modules, minus exclusions (see option.e
 Type: `String`
 Default value: `""`
 
-A path that all source files and directories are relative to.
+A path that both source files and located dependency files and directories are relative to.
 
 ### Output
 
