@@ -63,13 +63,6 @@ Default value: `null`
 Either an array or comma separated string listing the modules to be included in the set of dependencies.
 If the value is falesy the entire set of modules, minus exclusions (see option.exclude), will be used.
 
-#### options.cwd
-Type: `String`
-Default value: `""`
-
-Sets the root directory for locating the dependency files from.
-The returned paths for the source files and directories will be relative to the new root directory.
-
 ### Output
 
 An object containing arrays of all the files and directories returned from the task, is stored at the targets output property.
@@ -127,6 +120,20 @@ grunt.initConfig({
         exclude: ["moduleC", "moduleD"],
         include: "moduleA, moduleB"
       },
+      src: ["**/*Dependencies.json"]
+    }
+  }
+})
+```
+
+#### Retrieve output files and directories in a path that they are relative to
+In this example, "cwd" sets the root directory for locating the dependency files from. The returned paths for the source files and directories will be relative to the new root directory.
+
+```js
+grunt.initConfig({
+  modulefiles: {
+    all: {
+      cwd: "path/",
       src: ["**/*Dependencies.json"]
     }
   }
