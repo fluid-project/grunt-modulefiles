@@ -67,7 +67,8 @@ If the value is falesy the entire set of modules, minus exclusions (see option.e
 Type: `String`
 Default value: `""`
 
-A path that both source files and located dependency files and directories are relative to.
+Sets the root directory for locating the dependency files from.
+The returned paths for the source files and directories will be relative to the new root directory.
 
 ### Output
 
