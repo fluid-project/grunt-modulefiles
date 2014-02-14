@@ -126,7 +126,7 @@ grunt.initConfig({
 })
 ```
 
-#### Retrieve output files and directories in a path that they are relative to
+#### Set a relative path
 In this example, "cwd" sets the root directory for locating the dependency files from. The returned paths for the source files and directories will be relative to the new root directory.
 
 ```js
