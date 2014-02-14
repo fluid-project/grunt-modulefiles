@@ -103,8 +103,11 @@ module.exports = function(grunt) {
     // Store their diretory paths in the "moduleDirs" object
     var allModules = {};
     var moduleDirs = {};
+
+    var cwd = this.files[0].cwd || "";
     this.filesSrc.forEach(function (dependencyFile) {
-      var dependencyObj = grunt.file.readJSON(dependencyFile);
+
+      var dependencyObj = grunt.file.readJSON(cwd + dependencyFile);
       _.forEach(dependencyObj, function (module, moduleName) {
         module.files = toArray(module.files);
         // Locate the directory of the dependency file
