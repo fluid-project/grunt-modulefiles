@@ -1,51 +1,43 @@
 {
-  "name": "grunt-modulefiles",
-  "description": "Enables a project to split its files into a set of modules. A module's information is stored in a json file containing a name for the module, the files it contains, and other modules it depends on. The module files can then be accumulated into various configurations of included and excluded modules, which can be fed into other plugins (e.g. grunt-contrib-concat) for packaging.",
-  "version": "0.3.0-SNAPSHOT",
-  "homepage": "http://www.fluidproject.org",
-  "author": "Fluid Project",
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/fluid-project/grunt-modulefiles.git"
-  },
-  "bugs": {
-    "url": "http://issues.fluidproject.org/browse/FLUID"
-  },
-  "license": [
-    {
-      "type": "BSD-3-Clause",
-      "url": "http://www.opensource.org/licenses/BSD-3-Clause"
+    "name": "grunt-modulefiles",
+    "description": "Enables a project to split its files into a set of modules. A module's information is stored in a json file containing a name for the module, the files it contains, and other modules it depends on. The module files can then be accumulated into various configurations of included and excluded modules, which can be fed into other plugins (e.g. grunt-contrib-concat) for packaging.",
+    "version": "0.3.1",
+    "homepage": "http://www.fluidproject.org",
+    "author": "Fluid Project",
+    "repository": {
+        "type": "git",
+        "url": "git://github.com/fluid-project/grunt-modulefiles.git"
     },
-    {
-      "type": "ECL-2.0",
-      "url": "http://www.opensource.org/licenses/ECL-2.0"
+    "bugs": {
+        "url": "http://issues.fluidproject.org/browse/FLUID"
+    },
+    "license": "(BSD-3-Clause OR ECL-2.0)",
+    "main": "Gruntfile.js",
+    "engines": {
+        "node": ">=0.8.0"
+    },
+    "scripts": {
+        "test": "grunt test"
+    },
+    "devDependencies": {
+        "grunt-jsonlint": "1.0.4",
+        "fluid-grunt-eslint": "18.1.1",
+        "grunt-contrib-clean": "1.0.0",
+        "grunt-contrib-nodeunit": "1.0.0",
+        "grunt": "1.0.1"
+    },
+    "peerDependencies": {
+        "grunt": ">=0.4.0"
+    },
+    "keywords": [
+        "dependencies",
+        "files",
+        "gruntplugin",
+        "local module",
+        "module",
+        "package"
+    ],
+    "dependencies": {
+        "lodash": "4.13.1"
     }
-  ],
-  "main": "Gruntfile.js",
-  "engines": {
-    "node": ">= 0.8.0"
-  },
-  "scripts": {
-    "test": "grunt test"
-  },
-  "devDependencies": {
-    "grunt-contrib-jshint": "~0.6.0",
-    "grunt-contrib-clean": "~0.4.0",
-    "grunt-contrib-nodeunit": "~0.2.0",
-    "grunt": "~0.4.1"
-  },
-  "peerDependencies": {
-    "grunt": "~0.4.1"
-  },
-  "keywords": [
-    "dependencies",
-    "files",
-    "gruntplugin",
-    "local module",
-    "module",
-    "package"
-  ],
-  "dependencies": {
-    "lodash": "~2.4.1"
-  }
 }
