@@ -13,7 +13,7 @@ https://github.com/fluid-project/infusion/raw/master/Infusion-LICENSE.txt
 var path = require("path");
 var _ = require("lodash");
 
-module.exports = function(grunt) {
+module.exports = function (grunt) {
 
     /**
      * Converts a string to an array.
@@ -65,7 +65,7 @@ module.exports = function(grunt) {
     var getPaths = function (moduleInfo, modules, path) {
         path = toArray(path || "", ".");
         var paths = [];
-        _.forEach(modules, function(module) {
+        _.forEach(modules, function (module) {
             paths = _.union(paths, toArray(get(moduleInfo, [module].concat(path))));
         });
         return paths;
@@ -89,7 +89,7 @@ module.exports = function(grunt) {
         return modules;
     };
 
-    grunt.registerMultiTask("modulefiles", "Enables a project to split its files into a set of modules. A module's information is stored in a json file containing a name for the module, the files it contains, and other modules it depends on. The module files can then be accumulated into various configurations of included and excluded modules, which can be fed into other plugins (e.g. grunt-contrib-concat) for packaging.", function() {
+    grunt.registerMultiTask("modulefiles", "Enables a project to split its files into a set of modules. A module's information is stored in a json file containing a name for the module, the files it contains, and other modules it depends on. The module files can then be accumulated into various configurations of included and excluded modules, which can be fed into other plugins (e.g. grunt-contrib-concat) for packaging.", function () {
         // Merge task-specific and/or target-specific options with these defaults.
         var options = this.options({
             exclude: [],
