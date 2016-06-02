@@ -9,154 +9,157 @@ You may obtain a copy of the ECL 2.0 License and BSD License at
 https://github.com/fluid-project/infusion/raw/master/Infusion-LICENSE.txt
 */
 
-'use strict';
+"use strict";
 
-module.exports = function(grunt) {
+module.exports = function (grunt) {
 
-  // Project configuration.
-  grunt.initConfig({
-    jshint: {
-      all: [
-        'Gruntfile.js',
-        'tasks/*.js',
-        '<%= nodeunit.tests %>'
-      ],
-      options: {
-        jshintrc: '.jshintrc'
-      },
-    },
-
-    // Before generating any new files, remove any previously-created files.
-    clean: {
-      tests: ['tmp']
-    },
-
-    // Configuration to be run (and then tested).
-    modulefiles: {
-      all: {
-        src: ["**/*Dependencies.json"]
-      },
-      includeNoDependencies: {
-        options: {
-          include: "moduleA"
+    // Project configuration.
+    grunt.initConfig({
+        jsonlint: {
+            all: ["test/**/*.json", "tasks/**/*.json", "package.json"]
         },
-        src: "<%= modulefiles.all.src %>"
-      },
-      includeWithDependencies: {
-        options: {
-          include: "moduleB"
+        eslint: {
+            all: ["test/**/*.js", "tasks/**/*.js", "Gruntfile.js"],
+            options: {
+                ignore: true,
+                warnIgnoredByDefault: false
+            }
         },
-        src: "<%= modulefiles.all.src %>"
-      },
-      exclude: {
-        options: {
-          exclude: "moduleA, moduleE"
+
+        // Before generating any new files, remove any previously-created files.
+        clean: {
+            tests: ["tmp"]
         },
-        src: "<%= modulefiles.all.src %>"
-      },
-      includeAndExclude: {
-        options: {
-          include: "moduleB",
-          exclude: "moduleA"
+
+        // Configuration to be run (and then tested).
+        modulefiles: {
+            all: {
+                src: ["**/*Dependencies.json"]
+            },
+            includeNoDependencies: {
+                options: {
+                    include: "moduleA"
+                },
+                src: "<%= modulefiles.all.src %>"
+            },
+            includeWithDependencies: {
+                options: {
+                    include: "moduleB"
+                },
+                src: "<%= modulefiles.all.src %>"
+            },
+            exclude: {
+                options: {
+                    exclude: "moduleA, moduleE"
+                },
+                src: "<%= modulefiles.all.src %>"
+            },
+            includeAndExclude: {
+                options: {
+                    include: "moduleB",
+                    exclude: "moduleA"
+                },
+                src: "<%= modulefiles.all.src %>"
+            },
+            includeArray: {
+                options: {
+                    include: ["moduleA"]
+                },
+                src: "<%= modulefiles.all.src %>"
+            },
+            excludeArray: {
+                options: {
+                    exclude: ["moduleA", "moduleE"]
+                },
+                src: "<%= modulefiles.all.src %>"
+            },
+            nonArrayDependencies: {
+                options: {
+                    include: ["moduleC"]
+                },
+                src: "<%= modulefiles.all.src %>"
+            },
+            noDependencies: {
+                options: {
+                    include: ["moduleD"]
+                },
+                src: "<%= modulefiles.all.src %>"
+            },
+            differentName: {
+                options: {
+                    include: ["moduleE"]
+                },
+                src: "<%= modulefiles.all.src %>"
+            },
+            allWithCwd: {
+                cwd: "test/",
+                src: ["**/*Dependencies.json"]
+            },
+            includeAndExcludeWithCwd: {
+                options: {
+                    include: "moduleB",
+                    exclude: "moduleA"
+                },
+                cwd: "test/",
+                src: "<%= modulefiles.all.src %>"
+            }
         },
-        src: "<%= modulefiles.all.src %>"
-      },
-      includeArray: {
-        options: {
-          include: ["moduleA"]
+
+        // write the output of the test actions to a file for testing
+        /* eslint-disable camelcase */
+        write: {
+            all_files: "<%= modulefiles.all.output.files %>",
+            all_dirs: "<%= modulefiles.all.output.dirs %>",
+            includeNoDependencies_files: "<%= modulefiles.includeNoDependencies.output.files %>",
+            includeNoDependencies_dirs: "<%= modulefiles.includeNoDependencies.output.dirs %>",
+            includeWithDependencies_files: "<%= modulefiles.includeWithDependencies.output.files %>",
+            includeWithDependencies_dirs: "<%= modulefiles.includeWithDependencies.output.dirs %>",
+            exclude_files: "<%= modulefiles.exclude.output.files %>",
+            exclude_dirs: "<%= modulefiles.exclude.output.dirs %>",
+            includeAndExclude_files: "<%= modulefiles.includeAndExclude.output.files %>",
+            includeAndExclude_dirs: "<%= modulefiles.includeAndExclude.output.dirs %>",
+            includeArray_files: "<%= modulefiles.includeArray.output.files %>",
+            includeArray_dirs: "<%= modulefiles.includeArray.output.dirs %>",
+            excludeArray_files: "<%= modulefiles.excludeArray.output.files %>",
+            excludeArray_dirs: "<%= modulefiles.excludeArray.output.dirs %>",
+            nonArrayDependencies_files: "<%= modulefiles.nonArrayDependencies.output.files %>",
+            nonArrayDependencies_dirs: "<%= modulefiles.nonArrayDependencies.output.dirs %>",
+            noDependencies_files: "<%= modulefiles.noDependencies.output.files %>",
+            noDependencies_dirs: "<%= modulefiles.noDependencies.output.dirs %>",
+            differentName_files: "<%= modulefiles.differentName.output.files %>",
+            differentName_dirs: "<%= modulefiles.differentName.output.dirs %>",
+            allWithCwd_files: "<%= modulefiles.allWithCwd.output.files %>",
+            allWithCwd_dirs: "<%= modulefiles.allWithCwd.output.dirs %>",
+            includeAndExcludeWithCwd_files: "<%= modulefiles.includeAndExcludeWithCwd.output.files %>",
+            includeAndExcludeWithCwd_dirs: "<%= modulefiles.includeAndExcludeWithCwd.output.dirs %>"
         },
-        src: "<%= modulefiles.all.src %>"
-      },
-      excludeArray: {
-        options: {
-          exclude: ["moduleA", "moduleE"]
-        },
-        src: "<%= modulefiles.all.src %>"
-      },
-      nonArrayDependencies: {
-        options: {
-          include: ["moduleC"]
-        },
-        src: "<%= modulefiles.all.src %>"
-      },
-      noDependencies: {
-        options: {
-          include: ["moduleD"]
-        },
-        src: "<%= modulefiles.all.src %>"
-      },
-      differentName: {
-        options: {
-          include: ["moduleE"]
-        },
-        src: "<%= modulefiles.all.src %>"
-      },
-      allWithCwd: {
-        cwd: "test/",
-        src: ["**/*Dependencies.json"]
-      },
-      includeAndExcludeWithCwd: {
-        options: {
-          include: "moduleB",
-          exclude: "moduleA"
-        },
-        cwd: "test/",
-        src: "<%= modulefiles.all.src %>"
-      }
-    },
+        /* eslint-enable camelcase */
 
-    // write the output of the test actions to a file for testing
-    write: {
-      all_files: "<%= modulefiles.all.output.files %>",
-      all_dirs: "<%= modulefiles.all.output.dirs %>",
-      includeNoDependencies_files: "<%= modulefiles.includeNoDependencies.output.files %>",
-      includeNoDependencies_dirs: "<%= modulefiles.includeNoDependencies.output.dirs %>",
-      includeWithDependencies_files: "<%= modulefiles.includeWithDependencies.output.files %>",
-      includeWithDependencies_dirs: "<%= modulefiles.includeWithDependencies.output.dirs %>",
-      exclude_files: "<%= modulefiles.exclude.output.files %>",
-      exclude_dirs: "<%= modulefiles.exclude.output.dirs %>",
-      includeAndExclude_files: "<%= modulefiles.includeAndExclude.output.files %>",
-      includeAndExclude_dirs: "<%= modulefiles.includeAndExclude.output.dirs %>",
-      includeArray_files: "<%= modulefiles.includeArray.output.files %>",
-      includeArray_dirs: "<%= modulefiles.includeArray.output.dirs %>",
-      excludeArray_files: "<%= modulefiles.excludeArray.output.files %>",
-      excludeArray_dirs: "<%= modulefiles.excludeArray.output.dirs %>",
-      nonArrayDependencies_files: "<%= modulefiles.nonArrayDependencies.output.files %>",
-      nonArrayDependencies_dirs: "<%= modulefiles.nonArrayDependencies.output.dirs %>",
-      noDependencies_files: "<%= modulefiles.noDependencies.output.files %>",
-      noDependencies_dirs: "<%= modulefiles.noDependencies.output.dirs %>",
-      differentName_files: "<%= modulefiles.differentName.output.files %>",
-      differentName_dirs: "<%= modulefiles.differentName.output.dirs %>",
-      allWithCwd_files: "<%= modulefiles.allWithCwd.output.files %>",
-      allWithCwd_dirs: "<%= modulefiles.allWithCwd.output.dirs %>",
-      includeAndExcludeWithCwd_files: "<%= modulefiles.includeAndExcludeWithCwd.output.files %>",
-      includeAndExcludeWithCwd_dirs: "<%= modulefiles.includeAndExcludeWithCwd.output.dirs %>"
-    },
+        // Unit tests.
+        nodeunit: {
+            tests: ["test/*_test.js"]
+        }
+    });
 
-    // Unit tests.
-    nodeunit: {
-      tests: ['test/*_test.js']
-    },
+    // Load this plugin"s task.
+    grunt.loadTasks("tasks");
 
-  });
+    grunt.loadNpmTasks("grunt-jsonlint");
+    grunt.loadNpmTasks("fluid-grunt-eslint");
+    grunt.loadNpmTasks("grunt-contrib-clean");
+    grunt.loadNpmTasks("grunt-contrib-nodeunit");
 
-  // Load this plugin's task.
-  grunt.loadTasks('tasks');
+    // Simple task for writing the output to file for testing
+    grunt.registerMultiTask("write", "writes to temp directory", function () {
+        grunt.file.write("tmp/" + this.target, this.data);
+    });
 
-  grunt.loadNpmTasks('grunt-contrib-jshint');
-  grunt.loadNpmTasks('grunt-contrib-clean');
-  grunt.loadNpmTasks('grunt-contrib-nodeunit');
+    // Whenever the "test" task is run, first clean the "tmp" dir, then run this
+    // plugin"s task, then test the result.
+    grunt.registerTask("test", ["clean", "modulefiles", "write", "nodeunit"]);
 
-  // Simple task for writing the output to file for testing
-  grunt.registerMultiTask('write', 'writes to temp directory', function () {
-    grunt.file.write('tmp/' + this.target, this.data);
-  });
+    grunt.registerTask("lint", "Apply eslint and jsonlint", ["eslint", "jsonlint"]);
 
-  // Whenever the "test" task is run, first clean the "tmp" dir, then run this
-  // plugin's task, then test the result.
-  grunt.registerTask('test', ['clean', 'modulefiles', 'write', 'nodeunit']);
-
-  // By default, lint, run all tests, and clean.
-  grunt.registerTask('default', ['jshint', 'test', 'clean']);
-
+    // By default, lint, run all tests, and clean.
+    grunt.registerTask("default", ["lint", "test", "clean"]);
 };
