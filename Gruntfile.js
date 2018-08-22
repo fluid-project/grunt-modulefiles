@@ -44,7 +44,7 @@ module.exports = function (grunt) {
         // Configuration to be run (and then tested).
         modulefiles: {
             all: {
-                src: ["**/*Dependencies.json"]
+                src: ["./test/**/*Dependencies.json"]
             },
             includeNoDependencies: {
                 options: {
@@ -111,6 +111,12 @@ module.exports = function (grunt) {
                     exclude: "moduleA"
                 },
                 cwd: "test/",
+                src: ["**/*Dependencies.json"]
+            },
+            external: {
+                options: {
+                    include: "subModule2"
+                },
                 src: "<%= modulefiles.all.src %>"
             }
         },
@@ -141,7 +147,9 @@ module.exports = function (grunt) {
             allWithCwd_files: "<%= modulefiles.allWithCwd.output.files %>",
             allWithCwd_dirs: "<%= modulefiles.allWithCwd.output.dirs %>",
             includeAndExcludeWithCwd_files: "<%= modulefiles.includeAndExcludeWithCwd.output.files %>",
-            includeAndExcludeWithCwd_dirs: "<%= modulefiles.includeAndExcludeWithCwd.output.dirs %>"
+            includeAndExcludeWithCwd_dirs: "<%= modulefiles.includeAndExcludeWithCwd.output.dirs %>",
+            external_files: "<%= modulefiles.external.output.files %>",
+            external_dirs: "<%= modulefiles.external.output.dirs %>"
         },
         /* eslint-enable camelcase */
 

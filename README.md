@@ -59,6 +59,21 @@ module.
 
 ```
 
+If you wish to place the dependency file in a location outside of the module, you can specify the `directory` property
+indicating where the modules directory is, relative to the module file. This is useful if the module is pulled in via
+NPM. In the following example the dependency file would be a sibling to the module's directory:
+
+```json
+{
+    "moduleName": {
+        "files": ["file1.js", "file2.js"],
+        "dependencies": ["moduleA", "moduleB"],
+        "directory": ["./moduleDirectory"]
+    }
+}
+
+```
+
 ### Options
 
 #### options.exclude
@@ -167,6 +182,16 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
 functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
 
 ## Release History
+
+### v0.4.0
+
+* Module definitions can specify a `directory` property to indicated the module's directory location. This allows the
+  module file to be placed outside of the module; which is useful, for example, when a module is pulled in via NPM.
+
+### v0.3.1
+
+* Improved linting.
+* Published to NPM
 
 ### v0.2.1
 

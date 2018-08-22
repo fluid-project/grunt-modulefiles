@@ -113,7 +113,10 @@ module.exports = function (grunt) {
             _.forEach(dependencyObj, function (module, moduleName) {
                 module.files = toArray(module.files);
                 // Locate the directory of the dependency file
-                var moduleDir = path.dirname(dependencyFile);
+                // var moduleDir = path.dirname(dependencyFile);
+                var dependencyDir = path.dirname(dependencyFile);
+                // Locate the directory of the module
+                var moduleDir = path.join(dependencyDir, module.directory || "");
                 // recored the module directory path
                 moduleDirs[moduleName] = moduleDir;
                 // make file paths relative to root, instead of the depenency file.

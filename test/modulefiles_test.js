@@ -41,8 +41,8 @@ var assertPackage = function (test, testFileName, message) {
     // "tmp/" location is specified in write task of Gruntfile.js
     var actual = grunt.file.read("tmp/" + testFileName);
     var expected = grunt.file.read("test/expected/" + testFileName);
-    actual = actual.replace(/\//g, path.sep);
-    expected = expected.replace(/\//g, path.sep);
+    actual = actual.replace(/\//g, path.sep).trim();
+    expected = expected.replace(/\//g, path.sep).trim();
     test.equal(actual, expected, message);
 
     test.done();
@@ -133,6 +133,12 @@ exports.modulefiles = {
     },
     includeAndExcludeWithCwd_dirs: function (test) {
         assertPackageDirs(test, "includeAndExcludeWithCwd_dirs");
+    },
+    external_files: function (test) {
+        assertPackageFiles(test, "external_files");
+    },
+    external_dirs: function (test) {
+        assertPackageDirs(test, "external_dirs");
     }
 /* eslint-enable camelcase */
 };
