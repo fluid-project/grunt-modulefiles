@@ -1,0 +1,11 @@
+{
+    "subModule1": {
+        "directory": "./subModule1",
+        "files": ["subModule1-file1.js", "subModule1-file2.js"]
+    },
+    "subModule2": {
+        "directory": "./subModule2",
+        "files": ["subModule2-file1.js", "subModule2-file2.js"],
+        "dependencies": ["subModule1"]
+    }
+}

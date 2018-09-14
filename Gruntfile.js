@@ -9,6 +9,7 @@ You may obtain a copy of the ECL 2.0 License and BSD License at
 https://github.com/fluid-project/infusion/raw/master/Infusion-LICENSE.txt
 */
 
+/* eslint-env node */
 "use strict";
 
 module.exports = function (grunt) {
@@ -26,6 +27,15 @@ module.exports = function (grunt) {
             }
         },
 
+        lintAll: {
+            sources: {
+                md: [ "./*.md"],
+                js: ["./*.js", "./tasks/**/*.js", "./tests/**/*.js"],
+                json: ["./tests/**/*.json", "./*.json"],
+                other: ["./.*"]
+            }
+        },
+
         // Before generating any new files, remove any previously-created files.
         clean: {
             tests: ["tmp"]
@@ -34,7 +44,7 @@ module.exports = function (grunt) {
         // Configuration to be run (and then tested).
         modulefiles: {
             all: {
-                src: ["**/*Dependencies.json"]
+                src: ["./test/**/*Dependencies.json"]
             },
             includeNoDependencies: {
                 options: {
@@ -101,6 +111,12 @@ module.exports = function (grunt) {
                     exclude: "moduleA"
                 },
                 cwd: "test/",
+                src: ["**/*Dependencies.json"]
+            },
+            external: {
+                options: {
+                    include: "subModule2"
+                },
                 src: "<%= modulefiles.all.src %>"
             }
         },
@@ -131,7 +147,9 @@ module.exports = function (grunt) {
             allWithCwd_files: "<%= modulefiles.allWithCwd.output.files %>",
             allWithCwd_dirs: "<%= modulefiles.allWithCwd.output.dirs %>",
             includeAndExcludeWithCwd_files: "<%= modulefiles.includeAndExcludeWithCwd.output.files %>",
-            includeAndExcludeWithCwd_dirs: "<%= modulefiles.includeAndExcludeWithCwd.output.dirs %>"
+            includeAndExcludeWithCwd_dirs: "<%= modulefiles.includeAndExcludeWithCwd.output.dirs %>",
+            external_files: "<%= modulefiles.external.output.files %>",
+            external_dirs: "<%= modulefiles.external.output.dirs %>"
         },
         /* eslint-enable camelcase */
 
@@ -144,8 +162,7 @@ module.exports = function (grunt) {
     // Load this plugin"s task.
     grunt.loadTasks("tasks");
 
-    grunt.loadNpmTasks("grunt-jsonlint");
-    grunt.loadNpmTasks("fluid-grunt-eslint");
+    grunt.loadNpmTasks("gpii-grunt-lint-all");
     grunt.loadNpmTasks("grunt-contrib-clean");
     grunt.loadNpmTasks("grunt-contrib-nodeunit");
 
@@ -156,10 +173,10 @@ module.exports = function (grunt) {
 
     // Whenever the "test" task is run, first clean the "tmp" dir, then run this
     // plugin"s task, then test the result.
-    grunt.registerTask("test", ["clean", "modulefiles", "write", "nodeunit"]);
+    grunt.registerTask("test", ["clean", "lint", "modulefiles", "write", "nodeunit", "clean"]);
 
-    grunt.registerTask("lint", "Apply eslint and jsonlint", ["eslint", "jsonlint"]);
+    grunt.registerTask("lint", "Perform all standard lint checks.", ["lint-all"]);
 
     // By default, lint, run all tests, and clean.
-    grunt.registerTask("default", ["lint", "test", "clean"]);
+    grunt.registerTask("default", ["test"]);
 };
