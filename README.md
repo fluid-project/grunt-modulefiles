@@ -1,3 +1,5 @@
+_This repository has been archived and is now read-only. Please contact one of the fluid-project maintainers if you’d like to request it be unarchived for further development. https://wiki.fluidproject.org/display/fluid/Get+Involved_
+
 # grunt-modulefiles
 
 Enables a project to split its files into a set of modules. A module's information is stored in a json file containing a
